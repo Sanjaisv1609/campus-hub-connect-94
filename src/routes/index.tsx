@@ -1,24 +1,10 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight, Bell, BookOpen, CalendarDays, Map, Search } from "lucide-react";
+import hero from "@/assets/campus-hero.jpg";
+import student from "@/assets/student-maya.jpg";
+import { Brand } from "@/components/campushub/brand";
+import { Button } from "@/components/ui/button";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
-export const Route = createFileRoute("/")({
-  component: Index,
-});
-
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
+export const Route = createFileRoute("/")({ head: () => ({ meta: [{ title: "CampusHub — Your Campus, Your Space" }, { name: "description", content: "Events, announcements, resources and campus life in one student space." }, { property: "og:title", content: "CampusHub — Your Campus, Your Space" }, { property: "og:description", content: "Everything students need to navigate campus life." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] }), component: Home });
+const features = [[CalendarDays,"Events","Never miss what is happening."],[Bell,"Announcements","Important campus updates."],[BookOpen,"Resources","Study material in one place."],[Search,"Lost & Found","Reconnect items with owners."]] as const;
+function Home() { return <div className="min-h-screen bg-background text-foreground"><header className="sticky top-0 z-50 border-b border-border bg-background/75 backdrop-blur-xl"><div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3.5"><Brand/><nav className="hidden gap-7 text-sm text-muted-foreground md:flex"><Link to="/events">Events</Link><Link to="/resources">Resources</Link><Link to="/map">Map</Link><Link to="/lost-found">Lost & Found</Link></nav><div className="flex gap-2"><Button asChild variant="ghost" className="hidden sm:inline-flex"><Link to="/auth">Sign in</Link></Button><Button asChild className="rounded-full"><Link to="/auth">Sign up</Link></Button></div></div></header><section className="relative min-h-[calc(100vh-65px)] overflow-hidden"><img src={hero} alt="Students walking through a university campus at sunset" width={1920} height={1088} className="kenburns absolute inset-0 h-full w-full object-cover"/><div className="absolute inset-0 bg-[linear-gradient(90deg,var(--background)_0%,color-mix(in_oklab,var(--background)_78%,transparent)_48%,transparent_100%)]"/><div className="absolute inset-0 bg-[linear-gradient(0deg,var(--background),transparent_58%)]"/><div className="relative mx-auto grid max-w-7xl gap-8 px-5 py-14 lg:grid-cols-12 lg:py-24"><div className="rise lg:col-span-7"><div className="glass-panel rounded-3xl p-7 sm:p-10"><span className="inline-flex rounded-full border border-lavender/30 bg-lavender/10 px-3 py-1.5 font-mono text-xs uppercase text-lavender">Student Portal</span><h1 className="mt-6 text-5xl font-bold leading-[1.02] sm:text-6xl lg:text-7xl">Your Campus,<br/><span className="text-lavender">Your Space.</span></h1><p className="mt-6 max-w-xl text-lg text-foreground/80">Every event, resource, and corner of campus in one calm, confident home base.</p><div className="mt-8 flex flex-wrap gap-3"><Button asChild variant="hero" size="xl"><Link to="/auth">Get Started <ArrowRight/></Link></Button><Button asChild variant="glass" size="xl"><Link to="/map">Explore Campus <Map/></Link></Button></div><div className="mt-8 flex flex-wrap gap-7 border-t border-border pt-6">{[["12k","Students"],["340","Events"],["28","Buildings"]].map(([n,l])=><div key={l}><b className="font-display text-2xl">{n}</b><span className="ml-2 text-xs uppercase text-muted-foreground">{l}</span></div>)}</div></div></div><div className="rise lg:col-span-5 lg:pt-10"><div className="glass-panel rounded-3xl p-5"><p className="font-mono text-xs uppercase text-muted-foreground">Today · Campus pulse</p><div className="my-4 flex items-center gap-3 rounded-2xl bg-surface p-3"><img src={student} alt="Maya Sharma" width={816} height={816} className="size-11 rounded-full object-cover"/><div><p className="font-semibold">Maya Sharma</p><p className="text-xs text-muted-foreground">BSc Computer Science · Year 2</p></div></div><div className="grid grid-cols-2 gap-2.5">{[["Next","Data Structures","10:30 · Lab 3"],["Due","UI Assignment","Tomorrow"],["Event","Hack Night","7:00 PM"],["Notice","Library hours","Open 24h"]].map(x=><div className="rounded-xl bg-surface p-3" key={x[0]}><p className="font-mono text-[10px] uppercase text-muted-foreground">{x[0]}</p><p className="mt-1 text-sm font-semibold">{x[1]}</p><p className="text-xs text-muted-foreground">{x[2]}</p></div>)}</div></div></div></div></section><section className="mx-auto max-w-7xl px-5 py-16"><p className="font-mono text-xs uppercase text-lavender">Everything in reach</p><h2 className="mt-2 text-3xl font-bold sm:text-4xl">Campus life, organized</h2><div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{features.map(([Icon,title,copy])=><div key={title} className="rounded-2xl border border-border bg-surface p-5 transition-transform hover:-translate-y-1"><Icon className="size-5 text-lavender"/><h3 className="mt-5 text-lg font-semibold">{title}</h3><p className="mt-1 text-sm text-muted-foreground">{copy}</p></div>)}</div></section><footer className="border-t border-border"><div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-5 py-8 sm:flex-row"><Brand/><p className="text-sm text-muted-foreground">Your Campus, Your Space.</p></div></footer></div>; }
