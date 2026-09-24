@@ -8,6 +8,13 @@
       "when": 1790239275727,
       "tag": "0000_create_campushub_profiles_and_roles",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1790239483367,
+      "tag": "0001_tighten_campushub_function_permissions",
+      "breakpoints": true
     }
   ]
 }
